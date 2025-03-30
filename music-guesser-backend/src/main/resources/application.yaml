@@ -1,0 +1,23 @@
+spring:
+  main:
+    web-application-type: SERVLET
+    banner-mode: off
+  application:
+    name: musicguessr
+
+service:
+  configuration:
+    room-initializer:
+      solo-room-count: 3
+      party-room-count: 1
+    session-room-registry:
+      inactivation-time: 1 # In minutes
+      scheduler:
+        delay: 5 # In seconds
+  genius:
+    client:
+      host: "https://api.genius.com"
+      token: "zWpPAw1Hqo10wRk_3o5kidgk-AWjaw88flBhrdJC_n4_V7RW97r7czlzGPJDzgoB"
+
+logging:
+  config: ${LOGGING_CONFIG_LOCATION:src/main/resources/logback.xml}
