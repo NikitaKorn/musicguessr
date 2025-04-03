@@ -19,5 +19,13 @@ service:
       host: "https://api.genius.com"
       token: "zWpPAw1Hqo10wRk_3o5kidgk-AWjaw88flBhrdJC_n4_V7RW97r7czlzGPJDzgoB"
 
+player:
+  file:
+    path: ${PLAYER_FILE_PATH:music-guesser-backend/src/main/resources/names.txt}
+
+words:
+  file:
+    path: ${WORDS_FILE_PATh:music-guesser-backend/src/main/resources/words.txt}
+
 logging:
-  config: ${LOGGING_CONFIG_LOCATION:src/main/resources/logback.xml}
+  config: ${LOGGING_CONFIG_LOCATION:music-guesser-backend/src/main/resources/logback.xml}

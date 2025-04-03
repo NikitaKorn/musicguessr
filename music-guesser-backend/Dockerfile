@@ -14,14 +14,15 @@ RUN mvn clean package -DskipTests -Ddependency-check.skip=true
 FROM eclipse-temurin:17-jre-jammy
 
 # Настройка безопасности
-RUN useradd -m appuser && \
-    mkdir -p /app/logs && \
-    chown -R appuser:appuser /app
-USER appuser
+# RUN useradd -m appuser && \
+#    mkdir -p /app/logs && \
+#    chown -R appuser:appuser /app
+#USER appuser
 WORKDIR /app
 
 # Копируем собранный JAR
-COPY --from=builder --chown=appuser:appuser /app/target/musicguessr-*.jar ./app.jar
+COPY --from=builder /app/target/music-guessr-backend-0.0.1-SNAPSHOT.jar ./app.jar
+COPY /target/classes ./src
 
 # Порт для WebFlux и WebSocket
 EXPOSE 8080
