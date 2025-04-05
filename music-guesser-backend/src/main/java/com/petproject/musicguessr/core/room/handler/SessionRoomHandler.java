@@ -1,11 +1,11 @@
 package com.petproject.musicguessr.core.room.handler;
 
 import com.petproject.musicguessr.core.room.model.Player;
-import org.springframework.web.socket.CloseStatus;
+import com.petproject.musicguessr.model.BaseEvent;
 
-public interface SessionRoomHandler {
+public interface SessionRoomHandler<T extends BaseEvent<?>> {
     void onConnectionOpened(Player player) throws Exception;
-    void onMessageReceived(Player player, String message);
-    void onConnectionClosed(Player player, CloseStatus status);
+    void onMessageReceived(Player player, T event);
+    void onConnectionClosed(Player player);
     void onTransportError(Player player, Throwable error);
 }

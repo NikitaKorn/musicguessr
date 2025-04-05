@@ -7,9 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
-public class ErrorEvent extends BaseEvent {
+public class ErrorEvent extends BaseEvent<ErrorEvent.Payload> {
     private Payload payload;
 
     public ErrorEvent(String error) {
@@ -17,11 +16,16 @@ public class ErrorEvent extends BaseEvent {
         this.payload = new Payload(error);
     }
 
+    @Override
+    public Payload getPayload() {
+        return payload;
+    }
+
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public class Payload {
+    public static class Payload {
         private String error;
     }
 }

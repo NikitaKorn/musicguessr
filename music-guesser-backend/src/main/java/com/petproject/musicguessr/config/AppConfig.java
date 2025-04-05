@@ -1,18 +1,21 @@
 package com.petproject.musicguessr.config;
 
 import com.petproject.musicguessr.client.GeniusClient;
-import com.petproject.musicguessr.core.converter.MessageConverter;
 import com.petproject.musicguessr.core.dispatcher.EventDispatcher;
-import com.petproject.musicguessr.core.handler.broadcast.BroadcastEventHandler;
-import com.petproject.musicguessr.core.handler.broadcast.SearchRequestHandlerBroadcast;
-import com.petproject.musicguessr.core.handler.broadcast.SongRequestHandlerBroadcast;
-import com.petproject.musicguessr.core.handler.broadcast.WordRequestHandlerBroadcast;
-import com.petproject.musicguessr.core.handler.target.*;
-import com.petproject.musicguessr.core.processor.PartyEventProcessor;
-import com.petproject.musicguessr.core.processor.SoloEventProcessor;
+import com.petproject.musicguessr.core.handler.TargetEventHandler;
+import com.petproject.musicguessr.core.handler.BroadcastEventHandler;
+import com.petproject.musicguessr.core.handler.code.ShowInviteCodeRequestHandlerTarget;
+import com.petproject.musicguessr.core.handler.search.SearchRequestHandlerBroadcast;
+import com.petproject.musicguessr.core.handler.search.SearchRequestHandlerTarget;
+import com.petproject.musicguessr.core.handler.song.SongRequestHandlerBroadcast;
+import com.petproject.musicguessr.core.handler.song.SongRequestHandlerTarget;
+import com.petproject.musicguessr.core.handler.word.WordRequestHandlerBroadcast;
+import com.petproject.musicguessr.core.handler.word.WordRequestHandlerTarget;
+import com.petproject.musicguessr.core.processor.EventProcessor;
+import com.petproject.musicguessr.core.processor.EventProcessorImpl;
 import com.petproject.musicguessr.service.genius.GeniusService;
 import com.petproject.musicguessr.service.genius.GeniusServiceImpl;
-import com.petproject.musicguessr.service.word.RandomMusicPartService;
+import com.petproject.musicguessr.service.word.RandomSongPartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,40 +28,30 @@ import java.util.List;
 public class AppConfig {
 
     @Bean
-    public SoloEventProcessor soloEventProcessor(
-            @Autowired MessageConverter messageConverter,
-            @Autowired SearchRequestHandlerTarget searchRequestHandler,
-            @Autowired SongRequestHandlerTarget songRequestHandler,
-            @Autowired WordRequestHandlerTarget wordRequestHandler
+    public EventProcessor<?> eventProcessor (
+            @Autowired ShowInviteCodeRequestHandlerTarget showInviteCodeRequestHandlerTarget,
+            @Autowired SearchRequestHandlerTarget searchRequestHandlerTarget,
+            @Autowired SongRequestHandlerTarget songRequestHandlerTarget,
+            @Autowired WordRequestHandlerTarget wordRequestHandlerTarget,
+
+            @Autowired SearchRequestHandlerBroadcast searchRequestHandlerBroadcast,
+            @Autowired SongRequestHandlerBroadcast songRequestHandlerBroadcast,
+            @Autowired WordRequestHandlerBroadcast wordRequestHandlerBroadcast
     ) {
-        List<TargetEventHandler> targetHandlers = List.of(
-                searchRequestHandler,
-                songRequestHandler,
-                wordRequestHandler
+        List<TargetEventHandler<?>> targetHandlers = List.of(
+                showInviteCodeRequestHandlerTarget,
+                searchRequestHandlerTarget,
+                songRequestHandlerTarget,
+                wordRequestHandlerTarget
         );
 
-        return new SoloEventProcessor(messageConverter, targetHandlers);
-    }
-
-    @Bean
-    public PartyEventProcessor partyEventProcessor(
-            @Autowired MessageConverter messageConverter,
-            @Autowired ShowInviteCodeRequestHandlerTarget showInviteCodeRequestHandler,
-            @Autowired SearchRequestHandlerBroadcast searchRequestHandler,
-            @Autowired SongRequestHandlerBroadcast songRequestHandler,
-            @Autowired WordRequestHandlerBroadcast wordRequestHandler
-    ) {
-        List<TargetEventHandler> targetHandlers = List.of(
-                showInviteCodeRequestHandler
+        List<BroadcastEventHandler<?>> broadcastHandlers = List.of(
+                searchRequestHandlerBroadcast,
+                songRequestHandlerBroadcast,
+                wordRequestHandlerBroadcast
         );
 
-        List<BroadcastEventHandler> broadcastHandlers = List.of(
-                searchRequestHandler,
-                songRequestHandler,
-                wordRequestHandler
-        );
-
-        return new PartyEventProcessor(messageConverter, targetHandlers, broadcastHandlers);
+        return new EventProcessorImpl(targetHandlers, broadcastHandlers);
     }
 
     @Bean
@@ -77,7 +70,7 @@ public class AppConfig {
     }
 
     @Bean
-    public RandomMusicPartService wordsService() {
-        return new RandomMusicPartService();
+    public RandomSongPartService wordsService() {
+        return new RandomSongPartService();
     }
 }

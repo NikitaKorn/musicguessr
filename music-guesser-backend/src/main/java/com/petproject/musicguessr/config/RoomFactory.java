@@ -1,12 +1,12 @@
 package com.petproject.musicguessr.config;
 
-import com.petproject.musicguessr.core.processor.PartyEventProcessor;
-import com.petproject.musicguessr.core.processor.SoloEventProcessor;
+import com.petproject.musicguessr.core.processor.EventProcessorImpl;
 import com.petproject.musicguessr.core.room.adapter.WebSocketHandlerAdapter;
-import com.petproject.musicguessr.core.room.handler.PartySessionRoomHandler;
+import com.petproject.musicguessr.core.room.handler.impl.PartySessionRoomHandler;
 import com.petproject.musicguessr.core.room.handler.SessionRoomHandler;
-import com.petproject.musicguessr.core.room.handler.SoloSessionRoomHandler;
-import com.petproject.musicguessr.model.GameSessionModel;
+import com.petproject.musicguessr.core.room.handler.impl.SoloSessionRoomHandler;
+import com.petproject.musicguessr.model.GameRoom;
+import com.petproject.musicguessr.service.registry.GameRoomsRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
@@ -26,24 +26,18 @@ import java.util.stream.IntStream;
 @Configuration
 @EnableWebSocket
 public class RoomFactory implements WebSocketConfigurer {
-    private final GameSessionRoomRegistry roomRegistry;
-    private final SoloEventProcessor soloEventProcessor;
-    private final PartyEventProcessor partyEventProcessor;
+    private final GameRoomsRegistry roomRegistry;
     private final int soloRoomCount;
     private final int partyRoomCount;
 
     public RoomFactory(
-            @Autowired GameSessionRoomRegistry roomRegistry,
-            @Autowired SoloEventProcessor soloEventProcessor,
-            @Autowired PartyEventProcessor partyEventProcessor,
+            @Autowired GameRoomsRegistry roomRegistry,
             @Value("${service.configuration.room-initializer.solo-room-count}") int soloRoomCount,
             @Value("${service.configuration.room-initializer.party-room-count}") int partyRoomCount
     ) {
         this.roomRegistry = roomRegistry;
         this.soloRoomCount = soloRoomCount;
         this.partyRoomCount = partyRoomCount;
-        this.soloEventProcessor = soloEventProcessor;
-        this.partyEventProcessor = partyEventProcessor;
     }
 
     @Override
@@ -58,16 +52,16 @@ public class RoomFactory implements WebSocketConfigurer {
             SoloSessionRoomHandler gameSessionRoom = createSoloSessionRoomHandler();
             WebSocketHandlerAdapter webSocketHandlerAdapter = createWebSocketHandlerAdapter(gameSessionRoom);
 
-            GameSessionModel<SoloSessionRoomHandler> model = GameSessionModel.<SoloSessionRoomHandler>builder()
+            GameRoom<SoloSessionRoomHandler> model = GameRoom.<SoloSessionRoomHandler>builder()
                     .roomId(gameSessionRoom.getRoomId())
                     .handler(gameSessionRoom)
                     .adapter(webSocketHandlerAdapter)
-                    .type(GameSessionModel.Type.SOLO)
+                    .type(GameRoom.Type.SOLO)
                     .isBusy(false)
                     .build();
 
             registry.addHandler(createWebSocketHandlerAdapter(gameSessionRoom), model.getPath()).setAllowedOrigins("*");
-            roomRegistry.addGameSessionRoom(gameSessionRoom.getRoomId(), model);
+            roomRegistry.addRoom(gameSessionRoom.getRoomId(), model);
         });
         log.info("Was create {} solo rooms", soloRoomCount);
     }
@@ -77,16 +71,16 @@ public class RoomFactory implements WebSocketConfigurer {
             PartySessionRoomHandler gameSessionRoom = createPartySessionRoomHandler();
             WebSocketHandlerAdapter webSocketHandlerAdapter = createWebSocketHandlerAdapter(gameSessionRoom);
 
-            GameSessionModel<PartySessionRoomHandler> model = GameSessionModel.<PartySessionRoomHandler>builder()
+            GameRoom<PartySessionRoomHandler> model = GameRoom.<PartySessionRoomHandler>builder()
                     .roomId(gameSessionRoom.getRoomId())
                     .handler(gameSessionRoom)
                     .adapter(webSocketHandlerAdapter)
-                    .type(GameSessionModel.Type.PARTY)
+                    .type(GameRoom.Type.PARTY)
                     .isBusy(false)
                     .build();
 
             registry.addHandler(createWebSocketHandlerAdapter(gameSessionRoom), model.getPath()).setAllowedOrigins("*");
-            roomRegistry.addGameSessionRoom(gameSessionRoom.getRoomId(), model);
+            roomRegistry.addRoom(gameSessionRoom.getRoomId(), model);
         });
         log.info("Was create {} party rooms", partyRoomCount);
     }

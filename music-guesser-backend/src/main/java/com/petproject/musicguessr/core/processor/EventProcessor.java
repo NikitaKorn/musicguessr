@@ -1,10 +1,10 @@
 package com.petproject.musicguessr.core.processor;
 
 import com.petproject.musicguessr.core.room.model.Player;
-import org.springframework.web.socket.WebSocketSession;
+import com.petproject.musicguessr.model.BaseEvent;
 
 import java.util.Set;
 
-public interface EventProcessor {
-    void process(String message, WebSocketSession session, Set<Player> sessions);
+public interface EventProcessor<T extends BaseEvent<?>> {
+    void process(T event, Player player, Set<Player> players);
 }

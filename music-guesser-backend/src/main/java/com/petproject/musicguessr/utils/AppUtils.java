@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class AppUtils {
+public final class AppUtils {
     private static final String ALLOWED_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final Random random = new Random();
 
