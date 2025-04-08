@@ -1,6 +1,7 @@
 package com.petproject.musicguessr.core.processor;
 
 import com.petproject.musicguessr.core.handler.BroadcastEventHandler;
+import com.petproject.musicguessr.core.handler.EventHandler;
 import com.petproject.musicguessr.core.handler.TargetEventHandler;
 import com.petproject.musicguessr.core.room.model.Player;
 import com.petproject.musicguessr.model.BaseEvent;
@@ -26,29 +27,20 @@ public class EventProcessorImpl<T extends BaseEvent<?>> implements EventProcesso
     @Override
     public void process(T event, Player player, Set<Player> players) {
         targetEventHandlers.stream()
-                .filter(handler -> {
-                    try {
-                        return handler.canHandle(event);
-                    } catch (ClassCastException e) {
-                        log(e);
-                    }
-                   return false;
-                })
+                .filter(handler -> canBeHandled(event, handler))
                 .forEach(handler -> handler.handle(event, player));
 
         broadcastEventHandlers.stream()
-                .filter(handler -> {
-                    try {
-                        return handler.canHandle(event);
-                    } catch (ClassCastException e) {
-                        log(e);
-                    }
-                    return false;
-                })
+                .filter(handler -> canBeHandled(event, handler))
                 .forEach(handler -> handler.handle(event, players));
     }
 
-    private void log(ClassCastException e){
-        log.debug("Event can't be cast! {}", e.getMessage());
+    private boolean canBeHandled(T event, EventHandler<T> handler) {
+        try {
+            return handler.canHandle(event);
+        } catch (ClassCastException e) {
+            log.debug("Event {} can't be cast to {}!", event.getEventType(), handler.getType().getSimpleName());
+            return false;
+        }
     }
 }

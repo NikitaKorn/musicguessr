@@ -33,4 +33,9 @@ public final class WordRequestHandlerTarget extends WordRequestHandler implement
         var word = peekWord();
         eventDispatcher.sendEventToPlayers(new WordResultResponseEvent(word), Collections.singleton(player));
     }
+
+    @Override
+    public Class<WordRequestEvent> getType() {
+        return WordRequestEvent.class;
+    }
 }

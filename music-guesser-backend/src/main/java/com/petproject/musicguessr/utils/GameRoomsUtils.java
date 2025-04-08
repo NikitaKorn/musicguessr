@@ -4,7 +4,6 @@ import com.petproject.musicguessr.core.room.handler.AbstractSessionRoomHandler;
 import com.petproject.musicguessr.exception.PlayerNotFoundException;
 import com.petproject.musicguessr.exception.RoomIsBusyException;
 import com.petproject.musicguessr.exception.RoomNotFoundException;
-import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.model.GameRoom;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -30,7 +29,7 @@ public final class GameRoomsUtils {
         return !isGameRoomBusy(room);
     }
 
-    public static <T extends AbstractSessionRoomHandler<BaseEvent<?>>> Predicate<GameRoom<T>> hasPlayerSessionInGameRoom(WebSocketSession session) {
+    public static <T extends AbstractSessionRoomHandler> Predicate<GameRoom<T>> hasPlayerSessionInGameRoom(WebSocketSession session) {
         return room -> room.getRoom().getPlayers().stream().anyMatch(player -> player.getSession().equals(session));
     }
 

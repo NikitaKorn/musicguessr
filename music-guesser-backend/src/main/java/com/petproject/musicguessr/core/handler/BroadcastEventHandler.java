@@ -5,7 +5,6 @@ import com.petproject.musicguessr.model.BaseEvent;
 
 import java.util.Set;
 
-public interface BroadcastEventHandler<T extends BaseEvent<?>> {
-    boolean canHandle(T event);
+public interface BroadcastEventHandler<T extends BaseEvent<?>> extends EventHandler<T> {
     void handle(T event, Set<Player> players);
 }

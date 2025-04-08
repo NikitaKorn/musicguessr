@@ -28,4 +28,9 @@ public class ErrorHandlerTarget implements TargetEventHandler<ErrorEvent> {
     public void handle(ErrorEvent event, Player player) {
         eventDispatcher.sendEventToPlayers(event, Collections.singleton(player));
     }
+
+    @Override
+    public Class<ErrorEvent> getType() {
+        return ErrorEvent.class;
+    }
 }

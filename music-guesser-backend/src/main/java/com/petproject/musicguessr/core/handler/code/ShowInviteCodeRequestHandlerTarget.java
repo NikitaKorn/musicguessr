@@ -35,4 +35,11 @@ public final class ShowInviteCodeRequestHandlerTarget extends ShowInviteCodeRequ
         String inviteCode = roomRegistry.findRoomByPlayerSession(session).getRoom().getInviteCode();
         eventDispatcher.sendEventToPlayers(new ShowInviteCodeResponseEvent(inviteCode), Collections.singleton(player));
     }
+
+    @Override
+    public Class<CodeRequestEvent> getType() {
+        return CodeRequestEvent.class;
+    }
+
+
 }

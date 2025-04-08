@@ -43,15 +43,15 @@ import static com.petproject.musicguessr.utils.GameRoomsUtils.playerNotFoundEx;
 @Slf4j
 @Component
 @Scope("prototype")
-public class WebSocketHandlerAdapter<T extends BaseEvent<?>> implements WebSocketHandler {
+public class WebSocketHandlerAdapter implements WebSocketHandler {
     @Autowired
     private RandomPlayersNameService playersNameService;
     @Autowired
-    private MessageConverter<T> messageConverter;
-    private final SessionRoomHandler<T> gameSessionHandler;
+    private MessageConverter messageConverter;
+    private final SessionRoomHandler gameSessionHandler;
     private final Map<WebSocketSession, Player> players;
 
-    public WebSocketHandlerAdapter(SessionRoomHandler<T> gameSessionHandler) {
+    public WebSocketHandlerAdapter(SessionRoomHandler gameSessionHandler) {
         this.players = new ConcurrentHashMap<>();
         this.gameSessionHandler = gameSessionHandler;
     }
@@ -66,7 +66,7 @@ public class WebSocketHandlerAdapter<T extends BaseEvent<?>> implements WebSocke
     public void handleMessage(@NonNull WebSocketSession session, @NonNull WebSocketMessage<?> message) {
         Player client = getPlayerOrThrowEx(session);
         if (message instanceof TextMessage textMessage) {
-            T event = messageConverter.parseRequestEventFromMessage(textMessage.getPayload());
+            var event = messageConverter.parseRequestEventFromMessage(textMessage.getPayload());
             gameSessionHandler.onMessageReceived(client, event);
         }
     }

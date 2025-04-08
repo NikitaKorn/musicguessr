@@ -3,7 +3,6 @@ package com.petproject.musicguessr.service.registry;
 import com.petproject.musicguessr.core.room.handler.AbstractSessionRoomHandler;
 import com.petproject.musicguessr.exception.RoomIsBusyException;
 import com.petproject.musicguessr.exception.RoomNotFoundException;
-import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.model.GameRoom;
 import com.petproject.musicguessr.utils.GameRoomsUtils;
 import lombok.Getter;
@@ -14,8 +13,8 @@ import org.springframework.web.socket.WebSocketSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.petproject.musicguessr.utils.GameRoomsUtils.*;
 import static com.petproject.musicguessr.utils.AppUtils.getCurrentTimeInSeconds;
+import static com.petproject.musicguessr.utils.GameRoomsUtils.*;
 
 /**
  * Сервис для управления игровыми комнатами. Предоставляет методы для поиска, создания,
@@ -43,7 +42,7 @@ import static com.petproject.musicguessr.utils.AppUtils.getCurrentTimeInSeconds;
 @Slf4j
 @Getter
 @Service
-public final class GameRoomsRegistry<T extends AbstractSessionRoomHandler<BaseEvent<?>>> {
+public final class GameRoomsRegistry<T extends AbstractSessionRoomHandler> {
     private final Map<String, GameRoom<T>> gameRooms = new HashMap<>();
 
     public GameRoom<T> findFreeSoloGameRoom() {

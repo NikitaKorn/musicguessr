@@ -33,4 +33,9 @@ public final class SongRequestHandlerBroadcast extends SongRequestHandler implem
         var song = findSongAndSort(event.getPayload().getMessage());
         eventDispatcher.sendEventToPlayers(new SongResultResponseEvent(song), players);
     }
+
+    @Override
+    public Class<SongRequestEvent> getType() {
+        return SongRequestEvent.class;
+    }
 }

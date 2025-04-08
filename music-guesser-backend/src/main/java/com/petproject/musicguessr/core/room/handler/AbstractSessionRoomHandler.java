@@ -38,17 +38,17 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see EventProcessor
  */
 @Slf4j
-public abstract class AbstractSessionRoomHandler<T extends BaseEvent<?>> implements SessionRoomHandler<T> {
+public abstract class AbstractSessionRoomHandler implements SessionRoomHandler {
     @Getter
     protected final String roomId;
     protected final GameRoomsRegistry<?> roomRegistry;
-    protected final EventProcessor<T> eventProcessor;
+    protected final EventProcessor<BaseEvent<?>> eventProcessor;
     @Getter
     protected final Set<Player> players = ConcurrentHashMap.newKeySet();
 
     public AbstractSessionRoomHandler(
             GameRoomsRegistry<?> roomRegistry,
-            EventProcessor<T> eventProcessor,
+            EventProcessor<BaseEvent<?>> eventProcessor,
             String roomIdPrefix
     ) {
         this.roomRegistry = roomRegistry;
@@ -60,7 +60,7 @@ public abstract class AbstractSessionRoomHandler<T extends BaseEvent<?>> impleme
     public abstract void onConnectionOpened(Player player) throws Exception;
 
     @Override
-    public void onMessageReceived(Player player, T event) {
+    public void onMessageReceived(Player player, BaseEvent<?> event) {
         eventProcessor.process(event, player, players);
     }
 

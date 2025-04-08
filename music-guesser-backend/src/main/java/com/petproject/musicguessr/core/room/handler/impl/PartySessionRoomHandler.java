@@ -14,13 +14,13 @@ import org.springframework.util.CollectionUtils;
 @Slf4j
 @Component
 @Scope("prototype")
-public class PartySessionRoomHandler<T extends BaseEvent<?>> extends AbstractSessionRoomHandler<T> {
+public class PartySessionRoomHandler extends AbstractSessionRoomHandler {
     private static final String PREFIX = "PartySessionRoom-"; // ToDo Вынести в абстрактный метод в базовом классе для переопределения
     private final InviteCodeService inviteCodeService;
 
     public PartySessionRoomHandler(
             GameRoomsRegistry<?> roomRegistry,
-            EventProcessor<T> eventProcessor,
+            EventProcessor<BaseEvent<?>> eventProcessor,
             InviteCodeService inviteCodeService
     ) {
         super(roomRegistry, eventProcessor, PREFIX);

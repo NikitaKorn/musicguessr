@@ -33,4 +33,9 @@ public final class SongRequestHandlerTarget extends SongRequestHandler implement
         var song = findSongAndSort(event.getPayload().getMessage());
         eventDispatcher.sendEventToPlayers(new SongResultResponseEvent(song), Collections.singleton(player));
     }
+
+    @Override
+    public Class<SongRequestEvent> getType() {
+        return SongRequestEvent.class;
+    }
 }

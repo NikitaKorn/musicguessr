@@ -15,12 +15,12 @@ import org.springframework.web.socket.TextMessage;
 @Slf4j
 @Component
 @Scope("prototype")
-public class SoloSessionRoomHandler<T extends BaseEvent<?>> extends AbstractSessionRoomHandler<T> {
+public class SoloSessionRoomHandler extends AbstractSessionRoomHandler {
     private static final String PREFIX = "SoloSessionRoom-";
 
     public SoloSessionRoomHandler(
             GameRoomsRegistry<?> roomRegistry,
-            EventProcessor<T> eventProcessor
+            EventProcessor<BaseEvent<?>> eventProcessor
     ) {
         super(roomRegistry, eventProcessor, PREFIX);
     }
@@ -30,7 +30,7 @@ public class SoloSessionRoomHandler<T extends BaseEvent<?>> extends AbstractSess
         if (!CollectionUtils.isEmpty(this.players) && !getSingleSession().equals(player)) {
             log.warn("Player with session {} try to connect to busy room", player.getSession().getId());
             ErrorEvent event = new ErrorEvent("Room is busy!");
-            eventProcessor.process((T) event, player, players);
+            eventProcessor.process(event, player, players);
             player.getSession().sendMessage(new TextMessage("Room is busy!")); // ToDo создать ивент занятой комнаты
             closePlayerSession(player);
             roomRegistry.tryToReleaseRoom(roomId);

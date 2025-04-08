@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class SearchRequestHandler {
     private final GeniusService geniusService;
 
-    protected List<Hit> search(BaseEvent<SearchRequestEvent.Payload> event) {
+    protected  List<Hit> search(BaseEvent<SearchRequestEvent.Payload> event) {
         SearchRequestEvent.Payload payload = event.getPayload();
         return geniusService.findByText(payload.getMessage());
     }

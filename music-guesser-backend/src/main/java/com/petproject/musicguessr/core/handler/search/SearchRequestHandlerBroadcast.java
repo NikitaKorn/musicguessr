@@ -35,4 +35,9 @@ public final class SearchRequestHandlerBroadcast extends SearchRequestHandler im
         List<Hit> search = search(event);
         eventDispatcher.sendEventToPlayers(new SearchResponseEvent(search), players);
     }
+
+    @Override
+    public Class<SearchRequestEvent> getType() {
+        return SearchRequestEvent.class;
+    }
 }

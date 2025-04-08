@@ -33,4 +33,9 @@ public final class SearchRequestHandlerTarget extends SearchRequestHandler imple
         var hits = search(event);
         eventDispatcher.sendEventToPlayers(new SearchResponseEvent(hits), Collections.singleton(player));
     }
+
+    @Override
+    public Class<SearchRequestEvent> getType() {
+        return SearchRequestEvent.class;
+    }
 }
