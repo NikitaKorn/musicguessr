@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ShowInviteCodeResponseEvent extends BaseEvent {
+public class ShowInviteCodeResponseEvent extends BaseEvent<ShowInviteCodeResponseEvent.Payload> {
     private Payload payload;
 
     public ShowInviteCodeResponseEvent(String word) {
@@ -21,7 +21,7 @@ public class ShowInviteCodeResponseEvent extends BaseEvent {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public class Payload {
+    public static class Payload {
         private String code;
     }
 }

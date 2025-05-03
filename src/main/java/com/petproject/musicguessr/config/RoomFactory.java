@@ -1,6 +1,5 @@
 package com.petproject.musicguessr.config;
 
-import com.petproject.musicguessr.core.processor.EventProcessorImpl;
 import com.petproject.musicguessr.core.room.adapter.WebSocketHandlerAdapter;
 import com.petproject.musicguessr.core.room.handler.impl.PartySessionRoomHandler;
 import com.petproject.musicguessr.core.room.handler.SessionRoomHandler;
@@ -31,7 +30,7 @@ public class RoomFactory implements WebSocketConfigurer {
     private final int partyRoomCount;
 
     public RoomFactory(
-            @Autowired GameRoomsRegistry roomRegistry,
+            GameRoomsRegistry roomRegistry,
             @Value("${service.configuration.room-initializer.solo-room-count}") int soloRoomCount,
             @Value("${service.configuration.room-initializer.party-room-count}") int partyRoomCount
     ) {

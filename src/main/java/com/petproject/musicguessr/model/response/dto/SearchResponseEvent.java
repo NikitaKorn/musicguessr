@@ -16,14 +16,14 @@ public class SearchResponseEvent extends BaseEvent<SearchResponseEvent.Payload> 
 
     public SearchResponseEvent(List<Hit> hits) {
         this.eventType = EventType.SEARCH_RESPONSE;
-        this.payload = this.new Payload(new ArrayList<>(hits));
+        this.payload = new Payload(new ArrayList<>(hits));
     }
 
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public class Payload {
+    public static class Payload {
         private List<Hit> hits;
     }
 }

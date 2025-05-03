@@ -16,7 +16,7 @@ public class Hit {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public class Result {
+    public static class Result {
         private String id;
         private String url;
         @JsonProperty("full_title")
@@ -59,7 +59,7 @@ public class Hit {
             Hit obj = new Hit();
             obj.index = this.index;
             obj.type = this.type;
-            obj.result = obj.new Result(this.id, this.url, this.fullTitle);
+            obj.result = new Result(this.id, this.url, this.fullTitle);
             return obj;
         }
     }

@@ -10,12 +10,12 @@ import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
 @Getter
-public class SongResultResponseEvent extends BaseEvent {
+public class SongResultResponseEvent extends BaseEvent<SongResultResponseEvent.Payload> {
     private Payload payload;
 
     public SongResultResponseEvent(Song song) {
         this.eventType = EventType.SONG_RESPONSE;
-        this.payload = this.new Payload();
+        this.payload = new Payload();
         this.payload.title = song.getTitle();
         if(!CollectionUtils.isEmpty(song.getMedia())){
             this.payload.url = song.getMedia().get(0).getMediaUrl();
@@ -28,7 +28,7 @@ public class SongResultResponseEvent extends BaseEvent {
     @AllArgsConstructor
     @Setter
     @NoArgsConstructor
-    public class Payload {
+    public static class Payload {
         private String title;
         private String url;
     }

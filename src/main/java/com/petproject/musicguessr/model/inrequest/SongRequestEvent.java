@@ -18,7 +18,7 @@ public class SongRequestEvent extends BaseEvent<SongRequestEvent.Payload> {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public class Payload {
+    public static class Payload {
         private String message;
     }
 }

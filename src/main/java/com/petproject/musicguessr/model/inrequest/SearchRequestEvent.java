@@ -18,7 +18,7 @@ public class SearchRequestEvent extends BaseEvent<SearchRequestEvent.Payload> {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public class Payload {
+    public static class Payload {
         private String message;
     }
 }

@@ -23,7 +23,6 @@ import com.petproject.musicguessr.model.inrequest.WordRequestEvent;
 import com.petproject.musicguessr.service.genius.GeniusService;
 import com.petproject.musicguessr.service.genius.GeniusServiceImpl;
 import com.petproject.musicguessr.service.word.RandomSongPartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -39,14 +38,14 @@ public class AppConfig {
 
     @Bean
     public EventProcessor<?> eventProcessor (
-            @Autowired ShowInviteCodeRequestHandlerTarget showInviteCodeRequestHandlerTarget,
-            @Autowired SearchRequestHandlerTarget searchRequestHandlerTarget,
-            @Autowired SongRequestHandlerTarget songRequestHandlerTarget,
-            @Autowired WordRequestHandlerTarget wordRequestHandlerTarget,
+            ShowInviteCodeRequestHandlerTarget showInviteCodeRequestHandlerTarget,
+            SearchRequestHandlerTarget searchRequestHandlerTarget,
+            SongRequestHandlerTarget songRequestHandlerTarget,
+            WordRequestHandlerTarget wordRequestHandlerTarget,
 
-            @Autowired SearchRequestHandlerBroadcast searchRequestHandlerBroadcast,
-            @Autowired SongRequestHandlerBroadcast songRequestHandlerBroadcast,
-            @Autowired WordRequestHandlerBroadcast wordRequestHandlerBroadcast
+            SearchRequestHandlerBroadcast searchRequestHandlerBroadcast,
+            SongRequestHandlerBroadcast songRequestHandlerBroadcast,
+            WordRequestHandlerBroadcast wordRequestHandlerBroadcast
     ) {
         List<TargetEventHandler<?>> targetHandlers = List.of(
                 showInviteCodeRequestHandlerTarget,
@@ -77,7 +76,7 @@ public class AppConfig {
     }
 
     @Bean
-    public SongRequestHandlerBroadcast songRequestHandler(@Autowired GeniusService geniusService) {
+    public SongRequestHandlerBroadcast songRequestHandler(GeniusService geniusService) {
         return new SongRequestHandlerBroadcast(eventDispatcher(), geniusService);
     }
 
@@ -87,7 +86,7 @@ public class AppConfig {
     }
 
     @Bean
-    public GeniusService geniusService(@Autowired GeniusClient geniusClient) {
+    public GeniusService geniusService(GeniusClient geniusClient) {
         return new GeniusServiceImpl(geniusClient);
     }
 
