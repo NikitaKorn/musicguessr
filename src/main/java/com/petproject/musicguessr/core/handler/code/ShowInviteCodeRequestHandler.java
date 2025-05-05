@@ -5,5 +5,5 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ShowInviteCodeRequestHandler {
-    protected final GameRoomsRegistry<?> roomRegistry;
+    protected final GameRoomsRegistry roomRegistry;
 }

@@ -16,6 +16,10 @@
         <appender-ref ref="Console"/>
     </logger>
 
+    <logger name="com.petproject.musicguessr.service.registry.CloseInactiveSessionsScheduler" level="INFO" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
     <!-- Общий логгер -->
     <root level="INFO">
         <appender-ref ref="Console"/>

@@ -1,6 +1,5 @@
 package com.petproject.musicguessr.utils;
 
-import com.petproject.musicguessr.core.room.handler.AbstractSessionRoomHandler;
 import com.petproject.musicguessr.exception.PlayerNotFoundException;
 import com.petproject.musicguessr.exception.RoomIsBusyException;
 import com.petproject.musicguessr.exception.RoomNotFoundException;
@@ -13,31 +12,31 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public final class GameRoomsUtils {
-    public static <T extends AbstractSessionRoomHandler> boolean isSoloGameRoom(GameRoom<T> room) {
+    public static boolean isSoloGameRoom(GameRoom room) {
         return room.getType() == GameRoom.Type.SOLO;
     }
 
-    public static <T extends AbstractSessionRoomHandler> boolean isPartyGameRoom(GameRoom<T> room) {
+    public static boolean isPartyGameRoom(GameRoom room) {
         return room.getType() == GameRoom.Type.PARTY;
     }
 
-    public static <T extends AbstractSessionRoomHandler> boolean isGameRoomBusy(GameRoom<T> room) {
+    public static boolean isGameRoomBusy(GameRoom room) {
         return room.isBusy();
     }
 
-    public static <T extends AbstractSessionRoomHandler> boolean isGameRoomFree(GameRoom<T> room) {
+    public static boolean isGameRoomFree(GameRoom room) {
         return !isGameRoomBusy(room);
     }
 
-    public static <T extends AbstractSessionRoomHandler> Predicate<GameRoom<T>> doesPlayerHasOpenSession(WebSocketSession session) {
+    public static Predicate<GameRoom> doesPlayerHasOpenSession(WebSocketSession session) {
         return room -> room.getRoom().getPlayers().stream().anyMatch(player -> player.getSession().equals(session));
     }
 
-    public static <T extends AbstractSessionRoomHandler> Predicate<GameRoom<T>> hasRoomWithInviteCode(String inviteCode) {
+    public static Predicate<GameRoom> hasRoomWithInviteCode(String inviteCode) {
         return room -> inviteCode.equals(room.getRoom().getInviteCode());
     }
 
-    public static <T extends AbstractSessionRoomHandler> GameRoom<T> getRoomByIdOrThrowException(Map<String, GameRoom<T>> gameRooms, String roomId) {
+    public static GameRoom getRoomByIdOrThrowException(Map<String, GameRoom> gameRooms, String roomId) {
         return Optional.ofNullable(gameRooms.get(roomId))
                 .orElseThrow(() -> new RoomNotFoundException(String.format("Rooms with id %s doesn't exist!", roomId)));
     }

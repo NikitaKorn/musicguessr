@@ -3,6 +3,7 @@ package com.petproject.musicguessr.core.room.handler;
 import com.petproject.musicguessr.core.processor.EventProcessor;
 import com.petproject.musicguessr.core.room.model.Player;
 import com.petproject.musicguessr.model.BaseEvent;
+import com.petproject.musicguessr.model.response.ErrorEvent;
 import com.petproject.musicguessr.service.registry.GameRoomsRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,19 +42,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class AbstractSessionRoomHandler implements SessionRoomHandler {
     @Getter
     protected final String roomId;
-    protected final GameRoomsRegistry<?> roomRegistry;
+    protected final GameRoomsRegistry roomRegistry;
     protected final EventProcessor<BaseEvent<?>> eventProcessor;
     @Getter
     protected final Set<Player> players = ConcurrentHashMap.newKeySet();
 
     public AbstractSessionRoomHandler(
-            GameRoomsRegistry<?> roomRegistry,
-            EventProcessor<BaseEvent<?>> eventProcessor,
-            String roomIdPrefix
+            GameRoomsRegistry roomRegistry,
+            EventProcessor<BaseEvent<?>> eventProcessor
     ) {
         this.roomRegistry = roomRegistry;
         this.eventProcessor = eventProcessor;
-        this.roomId = "%s%s".formatted(roomIdPrefix, UUID.randomUUID());
+        this.roomId = createRoomId();
     }
 
     @Override
@@ -61,6 +61,7 @@ public abstract class AbstractSessionRoomHandler implements SessionRoomHandler {
 
     @Override
     public void onMessageReceived(Player player, BaseEvent<?> event) {
+        roomRegistry.refreshLastEventTimeInRoom(roomId);
         eventProcessor.process(event, player, players);
     }
 
@@ -72,10 +73,20 @@ public abstract class AbstractSessionRoomHandler implements SessionRoomHandler {
         log.error("Transport error for client {}: {}", player.getName(), error.getMessage());
     }
 
+    protected String getPrefixId() {
+        return "SessionRoom";
+    }
+
+    private String createRoomId() {
+        return "%s-%s".formatted(getPrefixId(), UUID.randomUUID());
+    }
+
     protected void closePlayerSession(Player player) {
         var session = player.getSession();
         if (session != null && session.isOpen()) {
             try {
+                ErrorEvent event = new ErrorEvent("You was AFK too long. Room was closed.");
+                eventProcessor.process(event, player, players);
                 session.close();
             } catch (IOException e) {
                 log.error("Error while closing session: {}", e.getMessage());

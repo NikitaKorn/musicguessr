@@ -6,6 +6,7 @@ import com.petproject.musicguessr.core.dispatcher.EventDispatcher;
 import com.petproject.musicguessr.core.handler.TargetEventHandler;
 import com.petproject.musicguessr.core.handler.BroadcastEventHandler;
 import com.petproject.musicguessr.core.handler.code.ShowInviteCodeRequestHandlerTarget;
+import com.petproject.musicguessr.core.handler.error.ErrorHandlerTarget;
 import com.petproject.musicguessr.core.handler.search.SearchRequestHandlerBroadcast;
 import com.petproject.musicguessr.core.handler.search.SearchRequestHandlerTarget;
 import com.petproject.musicguessr.core.handler.song.SongRequestHandlerBroadcast;
@@ -42,6 +43,7 @@ public class AppConfig {
             SearchRequestHandlerTarget searchRequestHandlerTarget,
             SongRequestHandlerTarget songRequestHandlerTarget,
             WordRequestHandlerTarget wordRequestHandlerTarget,
+            ErrorHandlerTarget errorHandlerTarget,
 
             SearchRequestHandlerBroadcast searchRequestHandlerBroadcast,
             SongRequestHandlerBroadcast songRequestHandlerBroadcast,
@@ -51,7 +53,8 @@ public class AppConfig {
                 showInviteCodeRequestHandlerTarget,
                 searchRequestHandlerTarget,
                 songRequestHandlerTarget,
-                wordRequestHandlerTarget
+                wordRequestHandlerTarget,
+                errorHandlerTarget
         );
 
         List<BroadcastEventHandler<?>> broadcastHandlers = List.of(

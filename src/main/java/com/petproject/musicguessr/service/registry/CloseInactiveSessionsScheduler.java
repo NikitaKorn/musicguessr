@@ -41,14 +41,14 @@ import static com.petproject.musicguessr.utils.AppUtils.getCurrentTimeInSeconds;
 @Slf4j
 @Service
 public final class CloseInactiveSessionsScheduler {
-    private final GameRoomsRegistry<?> roomsRegistry;
+    private final GameRoomsRegistry roomsRegistry;
     private final float inactivationTime;
 
     public CloseInactiveSessionsScheduler(
             @Value("${service.configuration.session-room-registry.inactivation-time}") float inactivationTime,
-            @Autowired GameRoomsRegistry<?> roomsRegistry
+            @Autowired GameRoomsRegistry roomsRegistry
     ) {
-        this.inactivationTime = inactivationTime * 60; // convert to minutes
+        this.inactivationTime = inactivationTime * 60; // convert to seconds
         this.roomsRegistry = roomsRegistry;
     }
 

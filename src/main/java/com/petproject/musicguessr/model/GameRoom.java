@@ -11,16 +11,16 @@ import static com.petproject.musicguessr.utils.AppUtils.getCurrentTimeInSeconds;
 
 @Getter
 @Setter
-public class GameRoom<T extends AbstractSessionRoomHandler>{
+public class GameRoom {
     private final String roomId;
     private final WebSocketHandlerAdapter adapter;
-    private final T room;
+    private final AbstractSessionRoomHandler room;
     private final String path;
     private boolean isBusy;
     private final Type type;
     private long lastEventTime;
 
-    private GameRoom(Builder<T> builder) {
+    private GameRoom(Builder builder) {
         this.roomId = builder.roomId;
         this.lastEventTime = getCurrentTimeInSeconds();
         this.path = UUID.randomUUID().toString();
@@ -31,8 +31,8 @@ public class GameRoom<T extends AbstractSessionRoomHandler>{
         this.type = builder.type;
     }
 
-    public static <T extends AbstractSessionRoomHandler> Builder<T> builder() {
-        return new Builder<>();
+    public static <T extends AbstractSessionRoomHandler> Builder builder() {
+        return new Builder();
     }
 
     public enum Type {
@@ -40,44 +40,44 @@ public class GameRoom<T extends AbstractSessionRoomHandler>{
         PARTY;
     }
 
-    public static class Builder<T extends AbstractSessionRoomHandler> {
+    public static class Builder {
         private String roomId;
-        private T room;
+        private AbstractSessionRoomHandler room;
         private WebSocketHandlerAdapter adapter;
         private String path;
         private boolean busy;
         private Type type;
 
-        public Builder<T> roomId(String roomId) {
+        public Builder roomId(String roomId) {
             this.roomId = roomId;
             return this;
         }
 
-        public Builder<T> handler(T handler) {
+        public Builder handler(AbstractSessionRoomHandler handler) {
             this.room = handler;
             return this;
         }
 
-        public Builder<T> adapter(WebSocketHandlerAdapter adapter) {
+        public Builder adapter(WebSocketHandlerAdapter adapter) {
             this.adapter = adapter;
             return this;
         }
 
-        public Builder<T> isBusy(boolean busy) {
+        public Builder isBusy(boolean busy) {
             this.busy = busy;
             return this;
         }
 
-        public Builder<T> type(Type type){
+        public Builder type(Type type){
             this.type = type;
             return this;
         }
 
-        public GameRoom<T> build() {
+        public GameRoom build() {
             if (room == null) {
                 throw new IllegalStateException("Room and path are required");
             }
-            return new GameRoom<>(this);
+            return new GameRoom(this);
         }
     }
 }

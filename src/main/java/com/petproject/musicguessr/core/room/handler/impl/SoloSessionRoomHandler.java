@@ -16,22 +16,16 @@ import org.springframework.web.socket.TextMessage;
 @Component
 @Scope("prototype")
 public class SoloSessionRoomHandler extends AbstractSessionRoomHandler {
-    private static final String PREFIX = "SoloSessionRoom-";
 
-    public SoloSessionRoomHandler(
-            GameRoomsRegistry<?> roomRegistry,
-            EventProcessor<BaseEvent<?>> eventProcessor
-    ) {
-        super(roomRegistry, eventProcessor, PREFIX);
+    public SoloSessionRoomHandler(GameRoomsRegistry roomRegistry, EventProcessor<BaseEvent<?>> eventProcessor) {
+        super(roomRegistry, eventProcessor);
     }
 
     @Override
     public void onConnectionOpened(Player player) throws Exception {
         if (!CollectionUtils.isEmpty(this.players) && !getSingleSession().equals(player)) {
             log.warn("Player with session {} try to connect to busy room", player.getSession().getId());
-            ErrorEvent event = new ErrorEvent("Room is busy!");
-            eventProcessor.process(event, player, players);
-            player.getSession().sendMessage(new TextMessage("Room is busy!")); // ToDo создать ивент занятой комнаты
+            eventProcessor.process(new ErrorEvent("Room is busy!"), player, players);
             closePlayerSession(player);
             roomRegistry.tryToReleaseRoom(roomId);
         }
@@ -56,5 +50,10 @@ public class SoloSessionRoomHandler extends AbstractSessionRoomHandler {
             throw new RuntimeException("More then 1 user in solo room!");
         }
         return players.iterator().next();
+    }
+
+    @Override
+    protected String getPrefixId() {
+        return "SoloSessionRoom";
     }
 }

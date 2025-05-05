@@ -13,7 +13,7 @@ public class RoomIsBusyException extends RuntimeException {
         super(PREFIX + message);
     }
 
-    public RoomIsBusyException(GameRoom<?> room) {
+    public RoomIsBusyException(GameRoom room) {
         super(String.format("Room %s is busy!", room.getRoomId()));
     }
 }

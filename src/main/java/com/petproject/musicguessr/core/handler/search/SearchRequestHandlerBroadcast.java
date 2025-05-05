@@ -8,7 +8,6 @@ import com.petproject.musicguessr.model.inrequest.SearchRequestEvent;
 import com.petproject.musicguessr.model.outrequest.Hit;
 import com.petproject.musicguessr.model.response.dto.SearchResponseEvent;
 import com.petproject.musicguessr.service.genius.GeniusService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,8 +19,7 @@ import static com.petproject.musicguessr.model.EventType.SEARCH_REQUEST_BROADCAS
 public final class SearchRequestHandlerBroadcast extends SearchRequestHandler implements BroadcastEventHandler<SearchRequestEvent> {
     private final EventDispatcher eventDispatcher;
 
-    public SearchRequestHandlerBroadcast(@Autowired EventDispatcher eventDispatcher,
-                                         @Autowired GeniusService geniusService) {
+    public SearchRequestHandlerBroadcast(EventDispatcher eventDispatcher, GeniusService geniusService) {
         super(geniusService);
         this.eventDispatcher = eventDispatcher;
     }

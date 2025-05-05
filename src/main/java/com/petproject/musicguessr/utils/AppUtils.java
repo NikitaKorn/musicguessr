@@ -43,4 +43,8 @@ public final class AppUtils {
             throw new IllegalStateException("Failed to load words from file", e);
         }
     }
+
+    public static boolean isCodeExist(final String code) {
+        return "null".equals(code);
+    }
 }

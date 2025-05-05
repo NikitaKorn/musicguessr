@@ -7,7 +7,6 @@ import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.model.inrequest.WordRequestEvent;
 import com.petproject.musicguessr.model.response.dto.WordResultResponseEvent;
 import com.petproject.musicguessr.service.word.RandomSongPartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -18,8 +17,7 @@ import static com.petproject.musicguessr.model.EventType.WORD_REQUEST_TARGET;
 public final class WordRequestHandlerTarget extends WordRequestHandler implements TargetEventHandler<WordRequestEvent> {
     private final EventDispatcher eventDispatcher;
 
-    public WordRequestHandlerTarget(@Autowired RandomSongPartService wordsService,
-                                    @Autowired EventDispatcher eventDispatcher) {
+    public WordRequestHandlerTarget(RandomSongPartService wordsService, EventDispatcher eventDispatcher) {
         super(wordsService);
         this.eventDispatcher = eventDispatcher;
     }

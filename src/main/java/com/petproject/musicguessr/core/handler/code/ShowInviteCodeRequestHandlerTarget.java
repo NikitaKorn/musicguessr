@@ -7,7 +7,6 @@ import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.model.inrequest.CodeRequestEvent;
 import com.petproject.musicguessr.model.response.dto.ShowInviteCodeResponseEvent;
 import com.petproject.musicguessr.service.registry.GameRoomsRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -19,8 +18,7 @@ import static com.petproject.musicguessr.model.EventType.SHOW_INVITE_CODE_REQUES
 public final class ShowInviteCodeRequestHandlerTarget extends ShowInviteCodeRequestHandler implements TargetEventHandler<CodeRequestEvent> {
     private final EventDispatcher eventDispatcher;
 
-    public ShowInviteCodeRequestHandlerTarget(@Autowired GameRoomsRegistry<?> roomRegistry,
-                                              @Autowired EventDispatcher eventDispatcher) {
+    public ShowInviteCodeRequestHandlerTarget(GameRoomsRegistry roomRegistry, EventDispatcher eventDispatcher) {
         super(roomRegistry);
         this.eventDispatcher = eventDispatcher;
     }
@@ -41,6 +39,4 @@ public final class ShowInviteCodeRequestHandlerTarget extends ShowInviteCodeRequ
     public Class<CodeRequestEvent> getType() {
         return CodeRequestEvent.class;
     }
-
-
 }

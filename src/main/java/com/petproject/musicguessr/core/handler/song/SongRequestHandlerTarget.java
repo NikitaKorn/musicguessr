@@ -7,7 +7,6 @@ import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.model.inrequest.SongRequestEvent;
 import com.petproject.musicguessr.model.response.dto.SongResultResponseEvent;
 import com.petproject.musicguessr.service.genius.GeniusService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -18,7 +17,7 @@ import static com.petproject.musicguessr.model.EventType.SONG_REQUEST_TARGET;
 public final class SongRequestHandlerTarget extends SongRequestHandler implements TargetEventHandler<SongRequestEvent> {
     private final EventDispatcher eventDispatcher;
 
-    public SongRequestHandlerTarget(@Autowired EventDispatcher eventDispatcher, @Autowired GeniusService geniusService) {
+    public SongRequestHandlerTarget(EventDispatcher eventDispatcher, GeniusService geniusService) {
         super(geniusService);
         this.eventDispatcher = eventDispatcher;
     }

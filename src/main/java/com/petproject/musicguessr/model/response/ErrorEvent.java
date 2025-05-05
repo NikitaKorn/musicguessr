@@ -26,6 +26,6 @@ public class ErrorEvent extends BaseEvent<ErrorEvent.Payload> {
     @NoArgsConstructor
     @Getter
     public static class Payload {
-        private String error;
+        private String message;
     }
 }

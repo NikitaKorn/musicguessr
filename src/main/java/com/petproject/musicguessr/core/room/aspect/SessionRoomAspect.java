@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @AllArgsConstructor
 public class SessionRoomAspect {
-    private final GameRoomsRegistry<?> roomRegistry;
+    private final GameRoomsRegistry roomRegistry;
 
     @Around("execution(* com.petproject.musicguessr.core.room.handler.SessionRoomHandler.onConnectionOpened(..))")
     public void processingOnConnectionOpenedMethod(ProceedingJoinPoint joinPoint) throws Throwable {

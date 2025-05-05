@@ -1,13 +1,12 @@
 package com.petproject.musicguessr.config;
 
 import com.petproject.musicguessr.core.room.adapter.WebSocketHandlerAdapter;
-import com.petproject.musicguessr.core.room.handler.impl.PartySessionRoomHandler;
 import com.petproject.musicguessr.core.room.handler.SessionRoomHandler;
+import com.petproject.musicguessr.core.room.handler.impl.PartySessionRoomHandler;
 import com.petproject.musicguessr.core.room.handler.impl.SoloSessionRoomHandler;
 import com.petproject.musicguessr.model.GameRoom;
 import com.petproject.musicguessr.service.registry.GameRoomsRegistry;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +50,7 @@ public class RoomFactory implements WebSocketConfigurer {
             SoloSessionRoomHandler gameSessionRoom = createSoloSessionRoomHandler();
             WebSocketHandlerAdapter webSocketHandlerAdapter = createWebSocketHandlerAdapter(gameSessionRoom);
 
-            GameRoom<SoloSessionRoomHandler> model = GameRoom.<SoloSessionRoomHandler>builder()
+            GameRoom model = GameRoom.<SoloSessionRoomHandler>builder()
                     .roomId(gameSessionRoom.getRoomId())
                     .handler(gameSessionRoom)
                     .adapter(webSocketHandlerAdapter)
@@ -70,7 +69,7 @@ public class RoomFactory implements WebSocketConfigurer {
             PartySessionRoomHandler gameSessionRoom = createPartySessionRoomHandler();
             WebSocketHandlerAdapter webSocketHandlerAdapter = createWebSocketHandlerAdapter(gameSessionRoom);
 
-            GameRoom<PartySessionRoomHandler> model = GameRoom.<PartySessionRoomHandler>builder()
+            GameRoom model = GameRoom.<PartySessionRoomHandler>builder()
                     .roomId(gameSessionRoom.getRoomId())
                     .handler(gameSessionRoom)
                     .adapter(webSocketHandlerAdapter)

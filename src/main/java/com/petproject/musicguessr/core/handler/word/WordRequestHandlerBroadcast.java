@@ -9,7 +9,6 @@ import com.petproject.musicguessr.model.response.dto.WordResultResponseEvent;
 import com.petproject.musicguessr.service.word.RandomSongPartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -21,8 +20,7 @@ public final class WordRequestHandlerBroadcast extends WordRequestHandler implem
     private static final Logger log = LoggerFactory.getLogger(WordRequestHandlerBroadcast.class);
     private final EventDispatcher eventDispatcher;
 
-    public WordRequestHandlerBroadcast(@Autowired RandomSongPartService wordsService,
-                                    @Autowired EventDispatcher eventDispatcher) {
+    public WordRequestHandlerBroadcast(RandomSongPartService wordsService, EventDispatcher eventDispatcher) {
         super(wordsService);
         this.eventDispatcher = eventDispatcher;
     }

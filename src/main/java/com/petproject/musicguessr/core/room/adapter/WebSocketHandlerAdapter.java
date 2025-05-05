@@ -3,7 +3,6 @@ package com.petproject.musicguessr.core.room.adapter;
 import com.petproject.musicguessr.core.converter.MessageConverter;
 import com.petproject.musicguessr.core.room.handler.SessionRoomHandler;
 import com.petproject.musicguessr.core.room.model.Player;
-import com.petproject.musicguessr.model.BaseEvent;
 import com.petproject.musicguessr.service.word.RandomPlayersNameService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

@@ -3,6 +3,7 @@ package com.petproject.musicguessr.controller;
 import com.petproject.musicguessr.service.registry.GameRoomsRegistry;
 import com.petproject.musicguessr.model.GameRoom;
 import com.petproject.musicguessr.model.response.RoomResponse;
+import com.petproject.musicguessr.utils.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,9 @@ public class RoomRegistryController {
     }
 
     @GetMapping("/peek-party-session-room")
-    public RoomResponse peekPartyFreeRoom(@RequestParam(required=false, defaultValue="") String inviteCode) {
+    public RoomResponse peekPartyFreeRoom(@RequestParam(required = false, defaultValue = "") String inviteCode) {
         GameRoom room = null;
-        if(inviteCode.equals("null")){
+        if (AppUtils.isCodeExist(inviteCode)) {
             room = roomRegistry.findFreePartyGameRoom();
         } else {
             room = roomRegistry.findGameRoomByInviteCode(inviteCode);

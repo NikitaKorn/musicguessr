@@ -15,15 +15,14 @@ import org.springframework.util.CollectionUtils;
 @Component
 @Scope("prototype")
 public class PartySessionRoomHandler extends AbstractSessionRoomHandler {
-    private static final String PREFIX = "PartySessionRoom-"; // ToDo Вынести в абстрактный метод в базовом классе для переопределения
     private final InviteCodeService inviteCodeService;
 
     public PartySessionRoomHandler(
-            GameRoomsRegistry<?> roomRegistry,
+            GameRoomsRegistry roomRegistry,
             EventProcessor<BaseEvent<?>> eventProcessor,
             InviteCodeService inviteCodeService
     ) {
-        super(roomRegistry, eventProcessor, PREFIX);
+        super(roomRegistry, eventProcessor);
         this.inviteCodeService = inviteCodeService;
     }
 
@@ -47,5 +46,10 @@ public class PartySessionRoomHandler extends AbstractSessionRoomHandler {
     @Override
     public String getInviteCode() {
         return inviteCodeService.getInviteCode();
+    }
+
+    @Override
+    protected String getPrefixId() {
+        return "PartySession";
     }
 }
