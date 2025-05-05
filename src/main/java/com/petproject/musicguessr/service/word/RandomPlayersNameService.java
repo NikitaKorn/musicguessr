@@ -19,7 +19,6 @@ public class RandomPlayersNameService implements WordsService {
     @PostConstruct
     private void init() {
         words = AppUtils.readLinesFromFile(filePath);
-        System.out.println();
     }
 
     @Override

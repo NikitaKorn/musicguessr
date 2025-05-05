@@ -8,10 +8,10 @@ COPY . .
 RUN mvn package
 
 # Run
-FROM eclipse-temurin:17-jre-jammy
-ENV JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxMetaspaceSize=128m"
+FROM eclipse-temurin:17-jre-alpine
+ENV JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxMetaspaceSize=128m -XX:+UseSerialGC"
 WORKDIR /app
 COPY --from=build /app/target/*.jar ./app.jar
 COPY --from=build /app/target/classes ./src
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar"]
