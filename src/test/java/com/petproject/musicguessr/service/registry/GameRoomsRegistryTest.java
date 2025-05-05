@@ -14,7 +14,7 @@ public class GameRoomsRegistryTest extends AbstractTest {
     @Autowired
     private Environment env;
     @Autowired
-    private GameRoomsRegistry<?> roomsRegistry;
+    private GameRoomsRegistry roomsRegistry;
 
     @BeforeEach
     public void before(){
@@ -31,7 +31,7 @@ public class GameRoomsRegistryTest extends AbstractTest {
 
     @Test
     public void findFreeSoloRoom() {
-        GameRoom<?> freeSoloGameRoom = roomsRegistry.findFreeSoloGameRoom();
+        GameRoom freeSoloGameRoom = roomsRegistry.findFreeSoloGameRoom();
         assertNotNull(freeSoloGameRoom);
         assertFalse(freeSoloGameRoom.isBusy());
     }
