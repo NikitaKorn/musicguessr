@@ -25,7 +25,7 @@ player:
 
 words:
   file:
-    path: ${WORDS_FILE_PATh:src/main/resources/words.txt}
+    path: ${WORDS_FILE_PATH:src/main/resources/words.txt}
 
 logging:
   config: ${LOGGING_CONFIG_LOCATION:src/main/resources/logback.xml}
