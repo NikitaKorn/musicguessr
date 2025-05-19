@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.socket.TextMessage;
 
 @Slf4j
 @Component
@@ -22,7 +21,7 @@ public class SoloSessionRoomHandler extends AbstractSessionRoomHandler {
     }
 
     @Override
-    public void onConnectionOpened(Player player) throws Exception {
+    public void onConnectionOpened(Player player) {
         if (!CollectionUtils.isEmpty(this.players) && !getSingleSession().equals(player)) {
             log.warn("Player with session {} try to connect to busy room", player.getSession().getId());
             eventProcessor.process(new ErrorEvent("Room is busy!"), player, players);
@@ -47,7 +46,7 @@ public class SoloSessionRoomHandler extends AbstractSessionRoomHandler {
 
     private Player getSingleSession() {
         if (players.size() > 1) {
-            throw new RuntimeException("More then 1 user in solo room!");
+            throw new IllegalStateException("Solo room cannot have multiple players");
         }
         return players.iterator().next();
     }

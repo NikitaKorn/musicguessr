@@ -2,7 +2,7 @@ package com.petproject.musicguessr.config;
 
 import com.petproject.musicguessr.client.GeniusClient;
 import com.petproject.musicguessr.core.converter.MessageConverter;
-import com.petproject.musicguessr.core.dispatcher.EventDispatcher;
+import com.petproject.musicguessr.core.dispatcher.EventDispatcherImpl;
 import com.petproject.musicguessr.core.handler.TargetEventHandler;
 import com.petproject.musicguessr.core.handler.BroadcastEventHandler;
 import com.petproject.musicguessr.core.handler.code.ShowInviteCodeRequestHandlerTarget;
@@ -84,8 +84,8 @@ public class AppConfig {
     }
 
     @Bean
-    public EventDispatcher eventDispatcher() {
-        return new EventDispatcher();
+    public EventDispatcherImpl eventDispatcher() {
+        return new EventDispatcherImpl();
     }
 
     @Bean

@@ -10,6 +10,31 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Реализация процессора событий для обработки {@link BaseEvent} с использованием зарегистрированных обработчиков.
+ * <p>
+ * Обеспечивает двунаправленную обработку событий:
+ * <ul>
+ *   <li><b>Целевая обработка</b> - через {@link TargetEventHandler}, работающие с конкретным игроком ({@link Player})</li>
+ *   <li><b>Широковещательная обработка</b> - через {@link BroadcastEventHandler}, работающие с набором игроков</li>
+ * </ul>
+ * </p>
+ *
+ * <p>Порядок обработки:
+ * <ol>
+ *   <li>Последовательно проверяет все целевые обработчики через {@link TargetEventHandler#canHandle(BaseEvent)}</li>
+ *   <li>Для подходящих обработчиков выполняет {@link TargetEventHandler#handle(BaseEvent, Player)}</li>
+ *   <li>Аналогично обрабатывает широковещательные обработчики для набора игроков</li>
+ * </ol>
+ * </p>
+ *
+ * @implSpec
+ * Не гарантирует порядок обработки внутри групп (target/broadcast). Для контроля порядка использовать сортировку обработчиков.
+ *
+ * @see EventProcessor
+ * @see TargetEventHandler
+ * @see BroadcastEventHandler
+ */
 public class EventProcessorImpl implements EventProcessor<BaseEvent<?>> {
     private static final Logger log = LoggerFactory.getLogger(EventProcessorImpl.class);
     private final List<TargetEventHandler<?>> targetEventHandlers;

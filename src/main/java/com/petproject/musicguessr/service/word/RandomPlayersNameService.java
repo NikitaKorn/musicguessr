@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class RandomPlayersNameService implements WordsService {
+public class RandomPlayersNameService implements RandomPeekService {
     private final Random random = new Random();
     private List<String> words;
 

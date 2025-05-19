@@ -37,14 +37,26 @@ public class GameRoomsRegistryTest extends AbstractTest {
     }
 
     @Test
-    public void throwExBecauseAllSoloRoomsAreBusy() {
+    public void shouldThrowExBecauseAllSoloRoomsAreBusy() {
         roomsRegistry.getGameRooms().values().forEach(room -> room.setBusy(true));
         assertThrows(RoomIsBusyException.class, () -> roomsRegistry.findFreeSoloGameRoom());
     }
 
     @Test
-    public void throwExBecauseAllPartyRoomsAreBusy() {
+    public void shouldThrowExBecauseAllPartyRoomsAreBusy() {
         roomsRegistry.getGameRooms().values().forEach(room -> room.setBusy(true));
         assertThrows(RoomIsBusyException.class, () -> roomsRegistry.findFreePartyGameRoom());
+    }
+
+    @Test
+    public void bookRoomByIdTest() {
+        GameRoom room = roomsRegistry.findFreeSoloGameRoom();
+        assertNotNull(room);
+        assertFalse(room.isBusy());
+
+        long countOfFreeSoloRoomBeforeBook = roomsRegistry.getCountOfFreeSoloRoom();
+        roomsRegistry.tryToBookRoom(room.getRoomId());
+        long countOfFreeSoloRoomAfterBook = roomsRegistry.getCountOfFreeSoloRoom();
+        assertEquals(countOfFreeSoloRoomBeforeBook-1, countOfFreeSoloRoomAfterBook);
     }
 }

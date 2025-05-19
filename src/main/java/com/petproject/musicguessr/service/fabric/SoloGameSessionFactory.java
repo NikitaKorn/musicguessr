@@ -2,7 +2,7 @@ package com.petproject.musicguessr.service.fabric;
 
 import com.petproject.musicguessr.service.code.InviteCodeServiceImpl;
 import com.petproject.musicguessr.service.genius.GeniusService;
-import com.petproject.musicguessr.service.word.WordsService;
+import com.petproject.musicguessr.service.word.RandomPeekService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +24,7 @@ public final class SoloGameSessionFactory implements GameSessionFactory {
     }
 
     @Override
-    public WordsService createWordsService() {
+    public RandomPeekService createWordsService() {
         return null;
     }
 

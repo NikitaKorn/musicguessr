@@ -1,5 +1,5 @@
 package com.petproject.musicguessr.service.word;
 
-public interface WordsService {
+public interface RandomPeekService {
     String peekRandom();
 }

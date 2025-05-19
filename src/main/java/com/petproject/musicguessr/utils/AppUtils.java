@@ -9,21 +9,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public final class AppUtils {
-    private static final String ALLOWED_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private static final Random random = new Random();
 
     public static long getCurrentTimeInSeconds() {
         return TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-    }
-
-    public static Optional<?> getOptionalFrom(Object object) {
-        return Optional.of(object);
     }
 
     public static List<String> readLinesFromFile(String filePath) {

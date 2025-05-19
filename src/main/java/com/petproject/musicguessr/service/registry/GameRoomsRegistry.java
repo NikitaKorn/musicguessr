@@ -76,6 +76,20 @@ public final class GameRoomsRegistry {
         room.setLastEventTime(getCurrentTimeInSeconds());
     }
 
+    public long getCountOfFreeSoloRoom() {
+        return gameRooms.values().stream()
+                .filter(GameRoomsUtils::isSoloGameRoom)
+                .filter(GameRoomsUtils::isGameRoomFree)
+                .count();
+    }
+
+    public long getCountOfFreePartyRoom() {
+        return gameRooms.values().stream()
+                .filter(GameRoomsUtils::isPartyGameRoom)
+                .filter(GameRoomsUtils::isGameRoomFree)
+                .count();
+    }
+
     public int getRoomsCount() {
         return gameRooms.size();
     }

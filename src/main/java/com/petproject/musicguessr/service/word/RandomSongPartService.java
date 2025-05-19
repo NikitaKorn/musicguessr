@@ -11,7 +11,7 @@ import java.util.Random;
 
 @Slf4j
 @Service
-public class RandomSongPartService implements WordsService {
+public class RandomSongPartService implements RandomPeekService {
     private final Random random = new Random();
     private List<String> words;
 

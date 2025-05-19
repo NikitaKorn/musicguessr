@@ -19,5 +19,13 @@ service:
       host: "https://api.genius.com"
       token: "zWpPAw1Hqo10wRk_3o5kidgk-AWjaw88flBhrdJC_n4_V7RW97r7czlzGPJDzgoB"
 
+player:
+  file:
+    path: src/test/resources/names-test.txt
+
+words:
+  file:
+    path: src/test/resources/words-test.txt
+
 logging:
-  config: ${LOGGING_CONFIG_LOCATION:src/main/resources/logback.xml}
+  config: src/main/resources/logback.xml

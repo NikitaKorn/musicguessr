@@ -1,6 +1,6 @@
 package com.petproject.musicguessr.core.handler.error;
 
-import com.petproject.musicguessr.core.dispatcher.EventDispatcher;
+import com.petproject.musicguessr.core.dispatcher.EventDispatcherImpl;
 import com.petproject.musicguessr.core.handler.TargetEventHandler;
 import com.petproject.musicguessr.core.room.model.Player;
 import com.petproject.musicguessr.model.BaseEvent;
@@ -14,9 +14,9 @@ import static com.petproject.musicguessr.model.EventType.ERROR;
 
 @Component
 public class ErrorHandlerTarget implements TargetEventHandler<ErrorEvent> {
-    private final EventDispatcher eventDispatcher;
+    private final EventDispatcherImpl eventDispatcher;
 
-    public ErrorHandlerTarget(@Autowired EventDispatcher eventDispatcher) {
+    public ErrorHandlerTarget(@Autowired EventDispatcherImpl eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
     }
 
