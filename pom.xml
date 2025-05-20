@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.petproject</groupId>
-    <artifactId>music-guessr-backend</artifactId>
+    <artifactId>song-guesser-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>music-guesser-backend</name>
+    <name>song-guesser-backend</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

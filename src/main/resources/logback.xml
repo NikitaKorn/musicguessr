@@ -12,11 +12,11 @@
     </appender>
 
     <!-- Логгер приложения -->
-    <logger name="com.petproject.musicguessr.core" level="DEBUG" additivity="false">
+    <logger name="com.petproject.songguessr.core" level="DEBUG" additivity="false">
         <appender-ref ref="Console"/>
     </logger>
 
-    <logger name="com.petproject.musicguessr.service.registry.CloseInactiveSessionsScheduler" level="INFO" additivity="false">
+    <logger name="com.petproject.songguessr.service.registry.CloseInactiveSessionsScheduler" level="INFO" additivity="false">
         <appender-ref ref="Console" />
     </logger>
 
