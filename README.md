@@ -1,5 +1,6 @@
-docker run --env-file .env -d -p 8080:8080 -v ./logs:/app/logs --name musicguessr-app musicguessr:latest
-
-docker build -t musicguessr:latest .
-
-docker-compose up
+Для локального запуска в docker необходимо запустить скрипт docker-run.sh.
+Для локального запуска должны быть установлены:
+1) Docker
+2) Java
+3) Maven
+4) Unix/Linux командная оболочка
