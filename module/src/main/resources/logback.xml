@@ -11,6 +11,10 @@
         </encoder>
     </appender>
 
+    <logger name="org.springframework.web.socket.config.WebSocketMessageBrokerStats" level="OFF">
+        <appender-ref ref="Console" />
+    </logger>
+
     <!-- Логгер приложения -->
     <logger name="com.petproject.songguessr.core" level="DEBUG" additivity="false">
         <appender-ref ref="Console"/>

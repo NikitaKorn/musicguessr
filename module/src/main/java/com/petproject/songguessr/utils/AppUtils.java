@@ -32,7 +32,7 @@ public final class AppUtils {
             return result;
         } catch (IOException | NullPointerException e) {
             log.error("Failed to read file: {}", filePath, e);
-            throw new IllegalStateException("Failed to load words from file", e);
+            throw new IllegalStateException("Failed to load lines from file", e);
         }
     }
 

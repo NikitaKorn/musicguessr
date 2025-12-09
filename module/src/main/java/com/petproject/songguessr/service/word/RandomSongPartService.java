@@ -13,7 +13,7 @@ public class RandomSongPartService implements RandomPeekService {
     private final Random random = new Random();
     private List<String> words;
 
-    @Value("${words.file.path:src/main/resources/words.txt}")
+    @Value("${words.file.path}")
     private String filePath;
 
     @PostConstruct

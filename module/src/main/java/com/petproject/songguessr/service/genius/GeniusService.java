@@ -4,8 +4,9 @@ import com.petproject.outrequest.Hit;
 import com.petproject.outrequest.Song;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GeniusService {
     List<Hit> findByText(String text);
-    Song findSongById(String id);
+    Optional<Song> findSongById(String id);
 }

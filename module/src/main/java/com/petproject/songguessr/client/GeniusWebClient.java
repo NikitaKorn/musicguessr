@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Configuration
 public class GeniusWebClient implements GeniusClient {
@@ -20,7 +21,7 @@ public class GeniusWebClient implements GeniusClient {
                 .build();
     }
 
-    public SearchGeniusResponse searchByText(String text) {
+    public SearchGeniusResponse searchByText(String text) throws WebClientResponseException {
         return webClient.get()
                 .uri(String.format("/search?q=%s", text))
                 .retrieve()
@@ -28,7 +29,7 @@ public class GeniusWebClient implements GeniusClient {
                 .block();
     }
 
-    public SongsGeniusResponse searchBySongId(String id) {
+    public SongsGeniusResponse searchBySongId(String id) throws WebClientResponseException {
         return webClient.get()
                 .uri(String.format("/songs/%s?text_format=plain", id))
                 .retrieve()

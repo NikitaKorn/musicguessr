@@ -17,7 +17,7 @@ service:
   genius:
     client:
       host: "https://api.genius.com"
-      token: "zWpPAw1Hqo10wRk_3o5kidgk-AWjaw88flBhrdJC_n4_V7RW97r7czlzGPJDzgoB"
+      token: ${GENIUS_TOKEN:secret-token}
 
 player:
   file:

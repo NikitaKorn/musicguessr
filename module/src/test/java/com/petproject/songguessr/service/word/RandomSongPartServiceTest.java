@@ -10,10 +10,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 
-@Disabled
 public class RandomSongPartServiceTest extends AbstractTest {
     @Autowired
-    @Qualifier("randomSongPartService")
     private RandomSongPartService songPartService;
 
     @Test
